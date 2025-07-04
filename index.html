@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programming Programming by Mehedi Al Hasan Sawon </title>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Font Awesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts: Playfair Display and Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #1c1c1c 0%, #2a2a2a 100%);
+      color: #e5e5e5;
+      overflow-x: hidden;
+    }
+    h1, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    .pdf-card {
+      background: #252525;
+      border: 1px solid #3a3a3a;
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+    .pdf-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.3);
+    }
+    .pdf-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .pdf-card:hover::before {
+      opacity: 1;
+    }
+    .search-bar {
+      transition: all 0.2s ease-out;
+    }
+    .search-bar:focus-within {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+    .gold-accent {
+      color: #d4af37;
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    .zoom-in {
+      animation: zoomIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .download-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .download-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+      transition: left 0.4s ease;
+    }
+    .download-btn:hover::after {
+      left: 100%;
+    }
+    .download-btn:hover {
+      background: linear-gradient(45deg, #d4af37, #b8972e);
+    }
+    .footer-text {
+      font-family: 'Playfair Display', serif;
+      color: #a8a8a8;
+    }
+    .footer-text a:hover {
+      color: #d4af37;
+      transition: color 0.2s ease;
+    }
+    .loading-spinner {
+      display: none;
+      border: 4px solid #d4af37;
+      border-top: 4px solid transparent;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    @keyframes spin {
+      0% { transform: translateY(-50%) rotate(0deg); }
+      100% { transform: translateY(-50%) rotate(360deg); }
+    }
+    .icon-pulse {
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto px-4 py-12">
+    <!-- Header Section -->
+    <div class="flex justify-between items-center mb-10 zoom-in">
+      <h1 class="text-4xl font-bold text-white flex items-center">
+        <i class="fas fa-book-open mr-3 gold-accent icon-pulse"></i> Programming PDF Library
+      </h1>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar mx-auto max-w-3xl mb-12 relative zoom-in">
+      <div class="relative">
+        <i class="fas fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        <input
+          type="text"
+          id="searchInput"
+          class="w-full pl-14 pr-12 py-4 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold-accent text-white placeholder-gray-400"
+          placeholder="Search by title, tag, or description..."
+        />
+        <div id="loadingSpinner" class="loading-spinner"></div>
+      </div>
+    </div>
+
+    <!-- PDF Cards Container -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="pdfContainer">
+      <!-- PDF Card 1 --
+      <div class="pdf-card-wrapper fade-in" data-tags="ai javascript openai assistant" data-title="AI Assistant Project" data-description="A fully built AI assistant using HTML, CSS, JS & OpenAI for intelligent interactions.">
+        <div class="pdf-card rounded-xl overflow-hidden">
+          <img src="https://i.postimg.cc/4nWWb0wn/hero-ai.png" alt="AI Assistant PDF" class="w-full h-56 object-cover" />
+          <div class="p-6">
+            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
+              <i class="fas fa-robot mr-3 gold-accent icon-pulse"></i> AI Assistant Project
+            </h3>
+            <p class="text-gray-300 text-sm mb-5 line-clamp-3">A fully built AI assistant using HTML, CSS, JS & OpenAI for intelligent interactions.</p>
+            <a href="https://sawon-21.github.io/pdf/ai-assistant.pdf" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
+              <i class="fas fa-download mr-2"></i> Download PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF Card 2 -->
+      <div class="pdf-card-wrapper fade-in" data-tags="html cheatsheet beginner webdev" data-title="HTML Tags Reference" data-description="Complete list of HTML tags with usage examples and practical code insights.">
+        <div class="pdf-card rounded-xl overflow-hidden">
+          <img src="https://i.postimg.cc/6qmPs9fh/hero-html.png" alt="HTML Tags PDF" class="w-full h-56 object-cover" />
+          <div class="p-6">
+            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
+              <i class="fas fa-code mr-3 gold-accent icon-pulse"></i> HTML Tags Reference
+            </h3>
+            <p class="text-gray-300 text-sm mb-5 line-clamp-3">Complete list of HTML tags with usage examples and practical code insights.</p>
+            <a href="https://jmp.sh/v9nRcc7X" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
+              <i class="fas fa-download mr-2"></i> Download PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF Card 3 -->
+      <div class="pdf-card-wrapper fade-in" data-tags="css layout design flex grid styling" data-title="Modern CSS Guide" data-description="A collection of best CSS practices including Flexbox, Grid, and animations.">
+        <div class="pdf-card rounded-xl overflow-hidden">
+          <img src="https://i.postimg.cc/W1Xkshkj/hero-css.png" alt="CSS Guide PDF" class="w-full h-56 object-cover" />
+          <div class="p-6">
+            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
+              <i class="fas fa-paint-brush mr-3 gold-accent icon-pulse"></i> Modern CSS Guide
+            </h3>
+            <p class="text-gray-300 text-sm mb-5 line-clamp-3">A collection of best CSS practices including Flexbox, Grid, and animations.</p>
+            <a href="https://sawon-21.github.io/pdf/css-guide.pdf" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
+              <i class="fas fa-download mr-2"></i> Download PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF Card 4 --
+      <div class="pdf-card-wrapper fade-in" data-tags="javascript snippets dom logic frontend" data-title="JavaScript Cheatsheet" data-description="Handy JS cheatsheet with all key methods, logic, syntax, and DOM essentials.">
+        <div class="pdf-card rounded-xl overflow-hidden">
+          <img src="https://i.postimg.cc/Bv5N5c0F/hero-js.png" alt="JavaScript PDF" class="w-full h-56 object-cover" />
+          <div class="p-6">
+            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
+              <i class="fas fa-js-square mr-3 gold-accent icon-pulse"></i> JavaScript Cheatsheet
+            </h3>
+            <p class="text-gray-300 text-sm mb-5 line-clamp-3">Handy JS cheatsheet with all key methods, logic, syntax, and DOM essentials.</p>
+            <a href="https://sawon-21.github.io/pdf/js-cheatsheet.pdf" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
+              <i class="fas fa-download mr-2"></i> Download PDF
+            </a>
+          </div>
+        </div>
+      </div> -->
+      
+    </div>
+
+    <!-- Footer with Developer Credit -->
+    <footer class="mt-12 text-center zoom-in">
+      <p class="footer-text text-lg">Follow for more - <a href="https://www.facebook.com/mehedialhasansawon217" class="gold-accent">Mehedi Al Hasan Sawon</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Advanced Search Functionality with Debouncing
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.pdf-card-wrapper');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    // Debounce function to limit search execution
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    const performSearch = debounce(function (keyword) {
+      loadingSpinner.style.display = 'block';
+      cards.forEach((card) => {
+        const tags = card.dataset.tags.toLowerCase();
+        const title = card.dataset.title.toLowerCase();
+        const description = card.dataset.description.toLowerCase();
+        
+        // Split keyword into individual words and check for matches
+        const keywords = keyword.trim().toLowerCase().split(/\s+/);
+        const matches = keywords.some(k => 
+          title.includes(k) || description.includes(k) || tags.includes(k)
+        );
+        
+        card.style.display = matches || keyword === '' ? 'block' : 'none';
+      });
+      setTimeout(() => {
+        loadingSpinner.style.display = 'none';
+      }, 300);
+    }, 300);
+
+    searchInput.addEventListener('input', function () {
+      performSearch(this.value);
+    });
+
+    // Trigger fade-in animation on load
+    document.addEventListener('DOMContentLoaded', () => {
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('fade-in');
+        }, index * 100);
+      });
+    });
+  </script>
+</body>
+</html>
