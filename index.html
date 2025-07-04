@@ -3,273 +3,458 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Programming Programming by Mehedi Al Hasan Sawon </title>
+  <title>Programming PDF Library by Mehedi Al Hasan Sawon</title>
   <!-- Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Font Awesome CDN -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <!-- Google Fonts: Playfair Display and Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #1c1c1c 0%, #2a2a2a 100%);
+      font-family: 'Hind Siliguri', sans-serif;
+      background: linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 100%);
       color: #e5e5e5;
       overflow-x: hidden;
+      user-select: none;
+      -webkit-user-select: none;
     }
-    h1, h3 {
-      font-family: 'Playfair Display', serif;
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
     }
-    .pdf-card {
+    
+    /* Disable right click and text selection */
+    body {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* List style layout with images */
+    .pdf-list-item {
       background: #252525;
-      border: 1px solid #3a3a3a;
-      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+      border-left: 4px solid #d4af37;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0 8px 8px 0;
       position: relative;
       overflow: hidden;
     }
-    .pdf-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.3);
+    
+    .pdf-list-item:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      background: #2e2e2e;
     }
-    .pdf-card::before {
+    
+    .pdf-image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+      border: 1px solid #3a3a3a;
+    }
+    
+    .pdf-content {
+      flex-grow: 1;
+    }
+    
+    .pdf-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    
+    .pdf-description {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .pdf-tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    
+    .tag {
+      background: rgba(212, 175, 55, 0.2);
+      color: #d4af37;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .download-btn {
+      background: linear-gradient(135deg, #d4af37 0%, #b8972e 100%);
+      color: #1a1a1a;
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      margin-left: 1.5rem;
+    }
+    
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+    
+    /* Header styles */
+    .header {
+      background: linear-gradient(90deg, #0f0f0f 0%, #1a1a1a 100%);
+      padding: 1.5rem;
+      border-bottom: 1px solid #333;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      background: url('https://i.postimg.cc/5tpdhs1t/online-library-and-e-books-illustration-download-in-svg-png-gif-file-formats-cloud-education-pack-s.png') center/cover;
+      opacity: 0.1;
+      z-index: 0;
     }
-    .pdf-card:hover::before {
-      opacity: 1;
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
     }
+    
+    /* Search bar */
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
     .search-bar {
-      transition: all 0.2s ease-out;
+      background: #252525;
+      border: 1px solid #333;
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      transition: all 0.3s ease;
     }
+    
     .search-bar:focus-within {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+      border-color: #d4af37;
     }
-    .gold-accent {
-      color: #d4af37;
+    
+    /* Loading spinner */
+    .loading-spinner {
+      display: none;
+      border: 3px solid rgba(212, 175, 55, 0.3);
+      border-top: 3px solid #d4af37;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
     }
-    .fade-in {
-      animation: fadeIn 0.5s ease-out;
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-    .zoom-in {
-      animation: zoomIn 0.4s ease-out;
-    }
+    
+    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
     }
-    .download-btn {
-      position: relative;
-      overflow: hidden;
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .pdf-list-item {
+        flex-direction: column;
+      }
+      
+      .pdf-image {
+        width: 100%;
+        height: 180px;
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .download-btn {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%;
+        text-align: center;
+      }
     }
-    .download-btn::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
-      transition: left 0.4s ease;
+    
+    /* Disabled state */
+    .disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      background: #555 !important;
     }
-    .download-btn:hover::after {
-      left: 100%;
-    }
-    .download-btn:hover {
-      background: linear-gradient(45deg, #d4af37, #b8972e);
-    }
-    .footer-text {
-      font-family: 'Playfair Display', serif;
-      color: #a8a8a8;
-    }
-    .footer-text a:hover {
-      color: #d4af37;
-      transition: color 0.2s ease;
-    }
-    .loading-spinner {
+    
+    /* No results message */
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
       display: none;
-      border: 4px solid #d4af37;
-      border-top: 4px solid transparent;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      animation: spin 1s linear infinite;
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    @keyframes spin {
-      0% { transform: translateY(-50%) rotate(0deg); }
-      100% { transform: translateY(-50%) rotate(360deg); }
-    }
-    .icon-pulse {
-      animation: pulse 1.5s infinite ease-in-out;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
     }
   </style>
 </head>
 <body>
-  <div class="container mx-auto px-4 py-12">
-    <!-- Header Section -->
-    <div class="flex justify-between items-center mb-10 zoom-in">
-      <h1 class="text-4xl font-bold text-white flex items-center">
-        <i class="fas fa-book-open mr-3 gold-accent icon-pulse"></i> Programming PDF Library
-      </h1>
-    </div>
+  <!-- Disable keyboard shortcuts -->
+  <script>
+    document.onkeydown = function(e) {
+      if (e.keyCode == 123 || // F12
+          (e.ctrlKey && e.shiftKey && e.keyCode == 73) || // Ctrl+Shift+I
+          (e.ctrlKey && e.shiftKey && e.keyCode == 74) || // Ctrl+Shift+J
+          (e.ctrlKey && e.keyCode == 85)) { // Ctrl+U
+        return false;
+      }
+    };
+    
+    // Disable right click
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+  </script>
 
+  <div class="header">
+    <div class="container mx-auto header-content">
+      <h1 class="text-3xl font-bold text-white flex items-center">
+        <i class="fas fa-book-open mr-3 text-yellow-500"></i> Programming PDF Library
+      </h1>
+      <p class="text-gray-400 mt-2">Essential programming resources in Bangla and English</p>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-6">
     <!-- Search Bar -->
-    <div class="search-bar mx-auto max-w-3xl mb-12 relative zoom-in">
-      <div class="relative">
-        <i class="fas fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+    <div class="search-container">
+      <div class="search-bar flex items-center">
+        <i class="fas fa-search text-gray-500 mr-3"></i>
         <input
           type="text"
           id="searchInput"
-          class="w-full pl-14 pr-12 py-4 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold-accent text-white placeholder-gray-400"
+          class="w-full bg-transparent border-none focus:outline-none text-white placeholder-gray-500"
           placeholder="Search by title, tag, or description..."
+          autocomplete="off"
         />
         <div id="loadingSpinner" class="loading-spinner"></div>
       </div>
     </div>
 
-    <!-- PDF Cards Container -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="pdfContainer">
-      <!-- PDF Card 1 --
-      <div class="pdf-card-wrapper fade-in" data-tags="ai javascript openai assistant" data-title="AI Assistant Project" data-description="A fully built AI assistant using HTML, CSS, JS & OpenAI for intelligent interactions.">
-        <div class="pdf-card rounded-xl overflow-hidden">
-          <img src="https://i.postimg.cc/4nWWb0wn/hero-ai.png" alt="AI Assistant PDF" class="w-full h-56 object-cover" />
-          <div class="p-6">
-            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
-              <i class="fas fa-robot mr-3 gold-accent icon-pulse"></i> AI Assistant Project
-            </h3>
-            <p class="text-gray-300 text-sm mb-5 line-clamp-3">A fully built AI assistant using HTML, CSS, JS & OpenAI for intelligent interactions.</p>
-            <a href="https://sawon-21.github.io/pdf/ai-assistant.pdf" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
-              <i class="fas fa-download mr-2"></i> Download PDF
-            </a>
+    <!-- PDF List Container -->
+    <div class="pdf-list-container" id="pdfContainer">
+      <!-- PDF Item 1 -->
+      <div class="pdf-list-item fade-in" data-tags="html cheatsheet beginner webdev bangla" data-title="HTML Tags Reference" data-description="Complete list of HTML tags with usage examples in Bangla">
+        <img src="https://i.postimg.cc/6qmPs9fh/hero-html.png" alt="HTML Tags Reference" class="pdf-image">
+        <div class="pdf-content">
+          <h3 class="pdf-title">HTML Tags Reference</h3>
+          <p class="pdf-description">
+            সব HTML ট্যাগের তালিকা এবং সঠিক উদাহরণ সহ ব্যাখ্যা।
+            – শিরোনাম ট্যাগ থেকে শুরু করে টেবিল, ফর্ম ইত্যাদি
+            – প্রতিটি ট্যাগের কাজ ও রচনাভঙ্গি
+            – Beginner দের জন্য খুবই গুরুত্বপূর্ণ
+          </p>
+          <div class="pdf-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">Beginner</span>
+            <span class="tag">Bangla</span>
+            <span class="tag">Cheatsheet</span>
           </div>
         </div>
+        <a href="https://jmp.sh/v9nRcc7X" download class="download-btn">
+          <i class="fas fa-download mr-2"></i> Download
+        </a>
       </div>
 
-      <!-- PDF Card 2 -->
-      <div class="pdf-card-wrapper fade-in" data-tags="html cheatsheet beginner webdev" data-title="HTML Tags Reference" data-description="Complete list of HTML tags with usage examples and practical code insights.">
-        <div class="pdf-card rounded-xl overflow-hidden">
-          <img src="https://i.postimg.cc/6qmPs9fh/hero-html.png" alt="HTML Tags PDF" class="w-full h-56 object-cover" />
-          <div class="p-6">
-            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
-              <i class="fas fa-code mr-3 gold-accent icon-pulse"></i> HTML Tags Reference
-            </h3>
-            <p class="text-gray-300 text-sm mb-5 line-clamp-3">Complete list of HTML tags with usage examples and practical code insights.</p>
-            <a href="https://jmp.sh/v9nRcc7X" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
-              <i class="fas fa-download mr-2"></i> Download PDF
-            </a>
+      <!-- PDF Item 2 -->
+      <div class="pdf-list-item fade-in" data-tags="css layout design flex grid styling bangla" data-title="Modern CSS Guide" data-description="Complete CSS guide with Flexbox, Grid and animations in Bangla">
+        <img src="https://i.postimg.cc/W1Xkshkj/hero-css.png" alt="Modern CSS Guide" class="pdf-image">
+        <div class="pdf-content">
+          <h3 class="pdf-title">Modern CSS Guide</h3>
+          <p class="pdf-description">
+            ফ্লেক্সবক্স, গ্রিড, রেস্পন্সিভ ডিজাইন ও অ্যানিমেশন সহ আধুনিক CSS গাইড।
+            – Layout তৈরির সেরা কৌশল
+            – UI ডিজাইনে প্রয়োজনীয় টিপস
+            – ক্লিন ও প্রফেশনাল ডিজাইনের জন্য একদম দরকারি
+          </p>
+          <div class="pdf-tags">
+            <span class="tag">CSS</span>
+            <span class="tag">Layout</span>
+            <span class="tag">Bangla</span>
+            <span class="tag">Flexbox</span>
+            <span class="tag">Grid</span>
           </div>
         </div>
+        <a href="https://jmp.sh/jsVCLATn" download class="download-btn">
+          <i class="fas fa-download mr-2"></i> Download
+        </a>
       </div>
 
-      <!-- PDF Card 3 -->
-      <div class="pdf-card-wrapper fade-in" data-tags="css layout design flex grid styling" data-title="Modern CSS Guide" data-description="A collection of best CSS practices including Flexbox, Grid, and animations.">
-        <div class="pdf-card rounded-xl overflow-hidden">
-          <img src="https://i.postimg.cc/W1Xkshkj/hero-css.png" alt="CSS Guide PDF" class="w-full h-56 object-cover" />
-          <div class="p-6">
-            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
-              <i class="fas fa-paint-brush mr-3 gold-accent icon-pulse"></i> Modern CSS Guide
-            </h3>
-            <p class="text-gray-300 text-sm mb-5 line-clamp-3">A collection of best CSS practices including Flexbox, Grid, and animations.</p>
-            <a href="https://sawon-21.github.io/pdf/css-guide.pdf" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
-              <i class="fas fa-download mr-2"></i> Download PDF
-            </a>
+      <!-- PDF Item 3 -->
+      <div class="pdf-list-item fade-in" data-tags="javascript cheatsheet frontend bangla" data-title="JavaScript Cheatsheet" data-description="Essential JavaScript concepts and methods in Bangla">
+        <img src="https://i.postimg.cc/Vvkj7Lg6/jsheader.png" alt="JavaScript Cheatsheet" class="pdf-image">
+        <div class="pdf-content">
+          <h3 class="pdf-title">JavaScript Cheatsheet</h3>
+          <p class="pdf-description">
+            জাভাস্ক্রিপ্টের সকল মৌলিক কনসেপ্ট ও মেথডের সংক্ষিপ্ত গাইড।
+            – ভেরিয়েবল, ফাংশন, লুপ থেকে শুরু করে অ্যারে মেথড
+            – DOM ম্যানিপুলেশন সহজ ভাষায়
+            – প্রতিদিন কাজে লাগবে এমন টিপস
+          </p>
+          <div class="pdf-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">Frontend</span>
+            <span class="tag">Bangla</span>
+            <span class="tag">Cheatsheet</span>
           </div>
         </div>
+        <a href="#" class="download-btn disabled" onclick="return false;">
+          <i class="fas fa-clock mr-2"></i> Coming Soon
+        </a>
       </div>
 
-      <!-- PDF Card 4 --
-      <div class="pdf-card-wrapper fade-in" data-tags="javascript snippets dom logic frontend" data-title="JavaScript Cheatsheet" data-description="Handy JS cheatsheet with all key methods, logic, syntax, and DOM essentials.">
-        <div class="pdf-card rounded-xl overflow-hidden">
-          <img src="https://i.postimg.cc/Bv5N5c0F/hero-js.png" alt="JavaScript PDF" class="w-full h-56 object-cover" />
-          <div class="p-6">
-            <h3 class="text-2xl font-semibold text-white mb-3 flex items-center">
-              <i class="fas fa-js-square mr-3 gold-accent icon-pulse"></i> JavaScript Cheatsheet
-            </h3>
-            <p class="text-gray-300 text-sm mb-5 line-clamp-3">Handy JS cheatsheet with all key methods, logic, syntax, and DOM essentials.</p>
-            <a href="https://sawon-21.github.io/pdf/js-cheatsheet.pdf" download class="download-btn block w-full text-center py-3 bg-gray-700 text-white rounded-lg transition duration-300">
-              <i class="fas fa-download mr-2"></i> Download PDF
-            </a>
+      <!-- PDF Item 4 -->
+      <div class="pdf-list-item fade-in" data-tags="git github version-control bangla" data-title="Git & GitHub Guide" data-description="Complete Git and GitHub tutorial in Bangla">
+        <img src="https://i.postimg.cc/Kz638YyY/Difference-Between-Git-Vs-Git-Hub.jpg" alt="Git & GitHub Guide" class="pdf-image">
+        <div class="pdf-content">
+          <h3 class="pdf-title">Git & GitHub Guide</h3>
+          <p class="pdf-description">
+            গিট ও গিটহাবের সম্পূর্ণ গাইড বাংলায়।
+            – ভিত্তি থেকে শুরু করে অ্যাডভান্সড কমান্ড
+            – ব্রাঞ্চ ম্যানেজমেন্ট ও কলাবরেশন
+            – প্রোজেক্ট ম্যানেজমেন্টের সেরা পদ্ধতি
+          </p>
+          <div class="pdf-tags">
+            <span class="tag">Git</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">Version Control</span>
+            <span class="tag">Bangla</span>
           </div>
         </div>
-      </div> -->
-      
+        <a href="#" class="download-btn disabled" onclick="return false;">
+          <i class="fas fa-clock mr-2"></i> Coming Soon
+        </a>
+      </div>
+
+      <!-- No results message -->
+      <div id="noResults" class="no-results">
+        <i class="fas fa-search fa-2x mb-3"></i>
+        <h3 class="text-xl font-semibold mb-2">No Results Found</h3>
+        <p>Try different search terms or browse all resources</p>
+      </div>
     </div>
 
-    <!-- Footer with Developer Credit -->
-    <footer class="mt-12 text-center zoom-in">
-      <p class="footer-text text-lg">Follow for more - <a href="https://www.facebook.com/mehedialhasansawon217" class="gold-accent">Mehedi Al Hasan Sawon</a></p>
+    <!-- Footer -->
+    <footer class="mt-12 py-6 border-t border-gray-800 text-center">
+      <p class="text-gray-500">
+        Created with <i class="fas fa-heart text-red-500 mx-1"></i> by 
+        <a href="https://www.facebook.com/mehedialhasansawon217" class="text-yellow-500 hover:text-yellow-400">Mehedi Al Hasan Sawon</a>
+      </p>
+      <p class="text-gray-600 text-sm mt-2">Follow for more 😊</p>
     </footer>
   </div>
 
   <script>
-    // Advanced Search Functionality with Debouncing
-    const searchInput = document.getElementById('searchInput');
-    const cards = document.querySelectorAll('.pdf-card-wrapper');
-    const loadingSpinner = document.getElementById('loadingSpinner');
-
-    // Debounce function to limit search execution
-    function debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-      };
-    }
-
-    const performSearch = debounce(function (keyword) {
-      loadingSpinner.style.display = 'block';
-      cards.forEach((card) => {
-        const tags = card.dataset.tags.toLowerCase();
-        const title = card.dataset.title.toLowerCase();
-        const description = card.dataset.description.toLowerCase();
-        
-        // Split keyword into individual words and check for matches
-        const keywords = keyword.trim().toLowerCase().split(/\s+/);
-        const matches = keywords.some(k => 
-          title.includes(k) || description.includes(k) || tags.includes(k)
-        );
-        
-        card.style.display = matches || keyword === '' ? 'block' : 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const pdfItems = document.querySelectorAll('.pdf-list-item');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const noResultsMessage = document.getElementById('noResults');
+      let searchTimeout;
+      
+      // Initialize all items as visible
+      pdfItems.forEach(item => {
+        item.style.display = 'flex';
       });
-      setTimeout(() => {
+      
+      // Improved search function
+      function performSearch(searchTerm) {
+        loadingSpinner.style.display = 'block';
+        let hasResults = false;
+        
+        // Split search term into individual words
+        const searchWords = searchTerm.toLowerCase().split(/\s+/);
+        
+        pdfItems.forEach(item => {
+          const title = item.dataset.title.toLowerCase();
+          const description = item.dataset.description.toLowerCase();
+          const tags = item.dataset.tags.toLowerCase();
+          
+          // Check if all search words match in any field
+          const matches = searchWords.every(word => 
+            title.includes(word) || 
+            description.includes(word) || 
+            tags.includes(word)
+          );
+          
+          if (matches || searchTerm === '') {
+            item.style.display = 'flex';
+            hasResults = true;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Show/hide no results message
+        noResultsMessage.style.display = hasResults || searchTerm === '' ? 'none' : 'block';
+        
         loadingSpinner.style.display = 'none';
-      }, 300);
-    }, 300);
-
-    searchInput.addEventListener('input', function () {
-      performSearch(this.value);
-    });
-
-    // Trigger fade-in animation on load
-    document.addEventListener('DOMContentLoaded', () => {
-      cards.forEach((card, index) => {
+      }
+      
+      // Debounced search input handler
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        loadingSpinner.style.display = 'block';
+        
+        searchTimeout = setTimeout(() => {
+          performSearch(this.value.trim());
+        }, 300);
+      });
+      
+      // Animate items on load
+      pdfItems.forEach((item, index) => {
         setTimeout(() => {
-          card.classList.add('fade-in');
-        }, index * 100);
+          item.style.opacity = 1;
+        }, index * 150);
+      });
+      
+      // Disable dragging of images and links
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'A') {
+          e.preventDefault();
+        }
+      });
+      
+      // Image error handling
+      document.querySelectorAll('.pdf-image').forEach(img => {
+        img.addEventListener('error', function() {
+          this.src = 'https://i.postimg.cc/4nWWb0wn/hero-ai.png'; // Fallback image
+        });
       });
     });
   </script>
